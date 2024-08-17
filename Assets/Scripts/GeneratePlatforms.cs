@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class GeneratePlatforms : MonoBehaviour
 {
-    [SerializeField] Transform PlatformsManager;
+    [SerializeField] Transform platformsManager;
     [SerializeField] GameObject platformPrefab;  // Префаб платформи
     [SerializeField] int numberOfPlatforms = 3;  // Кількість платформ (кількість сторін)
-    [SerializeField] int pound_count = 1;
     public Vector2 center = Vector2.zero; // Центр фігури
 
     private float platformLength;
-    private List<GameObject> platforms = new List<GameObject>();
+    private List<Platform> platforms = new List<Platform>();
 
     void Start()
     {
@@ -55,41 +54,9 @@ public class GeneratePlatforms : MonoBehaviour
 
             platform.transform.localScale = new Vector3(platform.transform.localScale.x, -platform.transform.localScale.y, platform.transform.localScale.z);
             
-                // Додаємо платформу до списку
-                platforms.Add(platform);
+            // Додаємо платформу до списку
+            platforms.Add(platform.GetComponent<Platform>());
         }
-        
+        platformsManager.GetComponent<PlatformsManager>().SetPlatforms(platforms);
     }
 }
-/*if(pound_count > numberOfPlatforms)
-        {
-            pound_count = numberOfPlatforms - 1;
-            Debug.LogWarning("numberOfPlatforms < pound_count\npound_count = numberOfPlatforms - 1;");
-        }
-
-        List<int> pound_ids = new List<int>();
-        for(int i = 0; i < pound_count; i++)
-        {
-            int temp = Random.Range(0, numberOfPlatforms);
-            foreach(int k in pound_ids)
-            {
-                if(temp == k)
-                { 
-                    i--;
-                    continue;
-                }
-                else pound_ids.Add(temp);
-            }
-            
-        }
-
-        foreach (int k in pound_ids)
-            {
-                if (i == k)
-                {
-                    SpriteRenderer sp = platform.GetComponentInChildren<SpriteRenderer>();
-                    sp.drawMode = SpriteDrawMode.Simple;
-                    sp.sprite = Resources.Load("Sprite/Platform/pound_tile.png")
-                }
-            }
-*/
